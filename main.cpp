@@ -1,5 +1,5 @@
 // I have assumed arrival times as 0, so turn around and completion times are same.
-
+// In this program, Higher the priority number, Higher the priority.
 #include <iostream>
 using namespace std;
 
@@ -170,7 +170,7 @@ int main()
     // While Round robin on all three queues is not complete, keep on repeating
 
     int timer = 0;       // to keep track of time
-    int l = 0;           // to keep track of which queue is being processed
+    int l = -1;          // to keep track of which queue is being processed
     int rr_timer = 4;    // to keep track of time for round robin for queue 1
     int counter = 0;     // to keep track of number of processes completed in queue 1
     int counterps = 0;   // to keep track of number of processes completed in queue 2
@@ -182,18 +182,18 @@ int main()
         {
             timer = 0;
         }
-        // l += 1;
-        // if (l >= 3)
-        // {
-        //     l = l % 3;
-        // }
+        l += 1;
+        if (l >= 3)
+        {
+            l = l % 3;
+        }
 
         /* Process lth queue if its already not executed.
         If its executed change the value of l and move to next queue */
 
         if (q[l].executed == true)
         {
-            cout << "Queue " << l + 1 << " completed\n";
+            // cout << "Queue " << l + 1 << " completed\n";
             l += 1;
             if (l >= 3)
             {
