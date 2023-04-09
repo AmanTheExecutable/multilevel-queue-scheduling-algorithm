@@ -182,11 +182,11 @@ int main()
         {
             timer = 0;
         }
-        l += 1;
-        if (l >= 3)
-        {
-            l = l % 3;
-        }
+        // l += 1;
+        // if (l >= 3)
+        // {
+        //     l = l % 3;
+        // }
 
         /* Process lth queue if its already not executed.
         If its executed change the value of l and move to next queue */
@@ -227,7 +227,7 @@ int main()
                 while (rr_timer > 0 && q[l].p[i].burst_time != 0 && timer != 10) // to execute the process for a unit time
                 {
                     int temp = q[l].p[i].burst_time;
-                    cout << "Executing queue 1 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
+                    cout << "Executing queue 1 and process " << i + 1 << " for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
                     q[l].p[i].burst_time--;
                     checkCompleteTimer(q);
                     rr_timer--;
@@ -284,7 +284,7 @@ int main()
                 while (q[l].p[i].burst_time != 0 && timer != 10) // to execute process for a unit time
                 {
                     int temp = q[l].p[i].burst_time;
-                    cout << "Executing queue 2 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
+                    cout << "Executing queue 2 and process " << i + 1 << " for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
                     q[l].p[i].burst_time--;
                     checkCompleteTimer(q); // to check if any process in any queue is completed
                     timer++;
@@ -316,7 +316,7 @@ int main()
                 while (q[l].p[i].burst_time != 0 && timer != 10) // to execute process for a unit time
                 {
                     int temp = q[l].p[i].burst_time;
-                    cout << "Executing queue 3 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
+                    cout << "Executing queue 3 and process " << i + 1 << " for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
                     q[l].p[i].burst_time--;
                     checkCompleteTimer(q); // to check if any process in any queue is completed
 
