@@ -8,7 +8,7 @@ class process
 public:
     int priority;       // priority of process
     int burst_time;     // burst time of process
-    int tt_time;        // total time of process
+    int tt_time;        // turnaround time of process
     int total_time = 0; // Completion time of process
 };
 
@@ -91,12 +91,12 @@ int main()
     // Initializing 3 queues and assigning specific range of priority to every queue.
 
     queues q[3]; // q[0] = highest priority queue, q[1] = medium priority queue, q[2] = lowest priority queue
-    q[0].priority_start = 7;
-    q[0].priority_end = 9;
-    q[1].priority_start = 4;
-    q[1].priority_end = 6;
+    q[0].priority_start = 9;
+    q[0].priority_end = 12;
+    q[1].priority_start = 5;
+    q[1].priority_end = 8;
     q[2].priority_start = 1;
-    q[2].priority_end = 3;
+    q[2].priority_end = 4;
 
     int no_of_processes, priority_of_process, burst_time_of_process;
     cout << "Enter the number of processes: ";
@@ -182,11 +182,11 @@ int main()
         {
             timer = 0;
         }
-        // l += 1;
-        // if (l >= 3)
-        // {
-        //     l = l % 3;
-        // }
+        l += 1;
+        if (l >= 3)
+        {
+            l = l % 3;
+        }
 
         /* Process lth queue if its already not executed.
         If its executed change the value of l and move to next queue */
@@ -213,30 +213,31 @@ int main()
                 rr_timer = 4;
             }
 
-            for (int i = 0; i < q[l].length; i++) // to execute all processes in queue 1
+            for (int i = 0; i < q[l].length; i++) // to execute all the processes in queue 1
             {
-                if (q[l].p[i].burst_time == 0) // to check if process is already completed
+                if (q[l].p[i].burst_time == 0)
                 {
                     counter++;
                     continue;
                 }
-                if (counter == q[l].length) // to check if all processes in queue 1 are completed
+                if (counter == q[l].length) // to check if all the processes in queue 1 are completed or not
                 {
                     break;
                 }
-                while (rr_timer > 0 && q[l].p[i].burst_time != 0 && timer != 10) // to execute process for a unit time
+                while (rr_timer > 0 && q[l].p[i].burst_time != 0 && timer != 10) // to execute the process for a unit time
                 {
-                    cout << "Executing queue 1 and process " << i + 1 << " for a unit time. Process has priority of " << q[l].p[i].priority << "\n";
+                    int temp = q[l].p[i].burst_time;
+                    cout << "Executing queue 1 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
                     q[l].p[i].burst_time--;
-                    checkCompleteTimer(q); // to check if any process in any queue is completed
+                    checkCompleteTimer(q);
                     rr_timer--;
                     timer++;
                 }
-                if (timer == 10) // to check if 10 seconds have passed or not
+                if (timer == 10) // to check if 10 seconds have passed or not if yes then go to next queue
                 {
                     break;
                 }
-                if (q[l].p[i].burst_time == 0 && rr_timer == 0) // to check if process is completed and time is also over
+                if (q[l].p[i].burst_time == 0 && rr_timer == 0) // to check if the process is completed and if yes then go to next process
                 {
                     rr_timer = 4;
                     if (i == (q[i].length - 1))
@@ -245,7 +246,7 @@ int main()
                     }
                     continue;
                 }
-                if (q[l].p[i].burst_time == 0 && rr_timer > 0) // to check if process is completed but time is not over
+                if (q[l].p[i].burst_time == 0 && rr_timer > 0) // to check if the process is completed and if yes then go to next process
                 {
                     if (i == (q[i].length - 1))
                     {
@@ -253,7 +254,7 @@ int main()
                     }
                     continue;
                 }
-                if (rr_timer <= 0) // to check if time is over but process is not completed
+                if (rr_timer <= 0) // to check if the time for round robin is over and if yes then go to next process
                 {
                     rr_timer = 4;
                     if (i == (q[i].length - 1))
@@ -282,7 +283,8 @@ int main()
                 }
                 while (q[l].p[i].burst_time != 0 && timer != 10) // to execute process for a unit time
                 {
-                    cout << "Executing queue 2 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << "\n";
+                    int temp = q[l].p[i].burst_time;
+                    cout << "Executing queue 2 and " << i + 1 << " process for a unit time. Process has priority of " << q[l].p[i].priority << " . Remaining burst time " << temp - 1 << "\n";
                     q[l].p[i].burst_time--;
                     checkCompleteTimer(q); // to check if any process in any queue is completed
                     timer++;
@@ -352,7 +354,7 @@ int main()
         cout << "Queue " << i + 1 << "\n";
         for (int j = 0; j < q[i].length; j++)
         {
-            cout << "Process P" << j + 1 << "\t" << q[i].p[j].tt_time << "\t\t    " << q[i].p[j].total_time - q[i].p[j].tt_time + 1 << "\n";
+            cout << "Process P" << j + 1 << "\t" << q[i].p[j].total_time + 1 << "\t\t    " << q[i].p[j].total_time - q[i].p[j].tt_time + 1 << "\n";
             sum_tt += q[i].p[j].total_time;
             sum_wt += q[i].p[j].total_time - q[i].p[j].tt_time;
         }
